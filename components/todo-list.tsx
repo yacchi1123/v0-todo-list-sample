@@ -38,11 +38,6 @@ export default function TodoList() {
     setTodos(todos.filter((todo) => todo.id !== id))
   }
 
-  const handleClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    addTodo();
-  };
-
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader>
@@ -60,7 +55,7 @@ export default function TodoList() {
               }
             }}
           />
-          <Button onClick={handleClick}>
+          <Button onClick={addTodo}>
             <PlusCircle className="h-4 w-4 mr-2" />
             追加
           </Button>
