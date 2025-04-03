@@ -33,12 +33,12 @@ export default function TodoList() {
   return (
     <Card className="w-full shadow-lg">
       <CardHeader className="px-6 py-6">
-        <CardTitle className="text-center text-2xl font-bold">TODOリスト</CardTitle>
+        <CardTitle className="text-center text-2xl font-bold">TODO List</CardTitle>
       </CardHeader>
       <CardContent className="px-6 pb-6">
         <div className="flex gap-8">
           <Input
-            placeholder="新しいタスクを入力"
+            placeholder="Enter a new task"
             value={newTodo}
             onChange={(e) => setNewTodo(e.target.value)}
             onKeyDown={(e) => {
@@ -49,13 +49,13 @@ export default function TodoList() {
             className="flex-1"
           />
           <Button onClick={addTodo} className="px-6" style={{ marginLeft: '24px' }}>
-            追加
+            Add
           </Button>
         </div>
 
         <div style={{ marginTop: '16px' }} className="space-y-3">
           {todos.length === 0 ? (
-            <p className="text-center text-muted-foreground">タスクがありません</p>
+            <p className="text-center text-muted-foreground">No tasks</p>
           ) : (
             todos.map((todo) => (
               <div
@@ -69,7 +69,7 @@ export default function TodoList() {
                   className="h-8 px-3"
                   style={{ marginLeft: '24px' }}
                 >
-                  削除
+                  Delete
                 </Button>
               </div>
             ))
