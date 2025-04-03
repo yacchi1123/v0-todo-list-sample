@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState } from "react"
 import { PlusCircle, Trash2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -16,7 +16,6 @@ interface Todo {
 export default function TodoList() {
   const [todos, setTodos] = useState<Todo[]>([])
   const [newTodo, setNewTodo] = useState("")
-  const addButtonRef = useRef<HTMLButtonElement>(null)
 
   const addTodo = () => {
     if (newTodo.trim() === "") return
@@ -30,23 +29,6 @@ export default function TodoList() {
     setTodos([...todos, todo])
     setNewTodo("")
   }
-
-  useEffect(() => {
-    const button = addButtonRef.current;
-    if (button) {
-      const handleClick = () => {
-        addTodo();
-      };
-
-      button.addEventListener('click', handleClick, { passive: false });
-      button.addEventListener('touchstart', handleClick, { passive: false });
-
-      return () => {
-        button.removeEventListener('click', handleClick);
-        button.removeEventListener('touchstart', handleClick);
-      };
-    }
-  }, [addTodo]);
 
   const toggleTodo = (id: number) => {
     setTodos(todos.map((todo) => (todo.id === id ? { ...todo, completed: !todo.completed } : todo)))
@@ -73,7 +55,7 @@ export default function TodoList() {
               }
             }}
           />
-          <Button ref={addButtonRef}>
+          <Button onClick={addTodo}>
             <PlusCircle className="h-4 w-4 mr-2" />
             追加
           </Button>
