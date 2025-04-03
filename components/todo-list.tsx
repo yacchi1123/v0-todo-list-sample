@@ -1,16 +1,13 @@
 "use client"
 
 import { useState } from "react"
-import { PlusCircle, Trash2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Checkbox } from "@/components/ui/checkbox"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 interface Todo {
   id: number
   text: string
-  completed: boolean
 }
 
 export default function TodoList() {
@@ -23,15 +20,10 @@ export default function TodoList() {
     const todo: Todo = {
       id: Date.now(),
       text: newTodo,
-      completed: false,
     }
 
     setTodos([...todos, todo])
     setNewTodo("")
-  }
-
-  const toggleTodo = (id: number) => {
-    setTodos(todos.map((todo) => (todo.id === id ? { ...todo, completed: !todo.completed } : todo)))
   }
 
   const deleteTodo = (id: number) => {
@@ -39,12 +31,12 @@ export default function TodoList() {
   }
 
   return (
-    <Card className="w-full max-w-md mx-auto">
-      <CardHeader>
-        <CardTitle className="text-center text-2xl">TODOリスト</CardTitle>
+    <Card className="w-full shadow-lg">
+      <CardHeader className="px-6 py-6">
+        <CardTitle className="text-center text-2xl font-bold">TODOリスト</CardTitle>
       </CardHeader>
-      <CardContent>
-        <div className="flex space-x-2 mb-4">
+      <CardContent className="px-6 pb-6">
+        <div className="flex gap-8">
           <Input
             placeholder="新しいタスクを入力"
             value={newTodo}
@@ -54,39 +46,30 @@ export default function TodoList() {
                 addTodo()
               }
             }}
+            className="flex-1"
           />
-          <Button onClick={addTodo}>
-            <PlusCircle className="h-4 w-4 mr-2" />
+          <Button onClick={addTodo} className="px-6" style={{ marginLeft: '24px' }}>
             追加
           </Button>
         </div>
 
-        <div className="space-y-2">
+        <div style={{ marginTop: '16px' }} className="space-y-3">
           {todos.length === 0 ? (
             <p className="text-center text-muted-foreground">タスクがありません</p>
           ) : (
             todos.map((todo) => (
               <div
                 key={todo.id}
-                className={`flex items-center justify-between p-3 rounded-md border ${
-                  todo.completed ? "bg-muted" : ""
-                }`}
+                className="flex items-center p-3 rounded-md border"
               >
-                <div className="flex items-center space-x-2">
-                  <Checkbox
-                    checked={todo.completed}
-                    onCheckedChange={() => toggleTodo(todo.id)}
-                    id={`todo-${todo.id}`}
-                  />
-                  <label
-                    htmlFor={`todo-${todo.id}`}
-                    className={`${todo.completed ? "line-through text-muted-foreground" : ""}`}
-                  >
-                    {todo.text}
-                  </label>
-                </div>
-                <Button variant="ghost" size="icon" onClick={() => deleteTodo(todo.id)} aria-label="タスクを削除">
-                  <Trash2 className="h-4 w-4 text-destructive" />
+                <span className="flex-1">{todo.text}</span>
+                <Button 
+                  variant="ghost" 
+                  onClick={() => deleteTodo(todo.id)} 
+                  className="h-8 px-3"
+                  style={{ marginLeft: '24px' }}
+                >
+                  削除
                 </Button>
               </div>
             ))

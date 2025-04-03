@@ -2,9 +2,11 @@ import TodoList from "@/components/todo-list"
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-4">
-      <TodoList />
-    </main>
+    <div className="min-h-screen w-screen flex items-center justify-center bg-gray-50">
+      <div className="w-[90%] max-w-md">
+        <TodoList />
+      </div>
+    </div>
   )
 }
 
